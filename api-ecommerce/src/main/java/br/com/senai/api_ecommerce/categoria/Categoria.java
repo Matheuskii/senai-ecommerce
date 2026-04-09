@@ -20,10 +20,20 @@ public class Categoria {
     private Long id;
     private String nome;
     private String descricao;
+    private boolean ativo;
 
 
     public Categoria( DadosCadastroCategoria dados){
         this.nome = dados.nome();
         this.descricao = dados.descricao();
+    }
+
+    public void atualizarCategoria(DadosAtualizarCategoria dados) {
+        if(dados.nome() != null && !dados.nome().isBlank())
+        this.nome = dados.nome();
+    this.descricao = dados.descricao();}
+
+    public void excluirCategoria() {
+        this.ativo = false;
     }
 }
