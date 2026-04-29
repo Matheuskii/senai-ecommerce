@@ -1,9 +1,7 @@
 package br.com.senai.api_ecommerce.produto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.senai.api_ecommerce.categoria.Categoria;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,19 +9,40 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-
-@Entity(name = "produto")
+@Table(name = "produtos")
+@Entity(name = "Produto")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     private String nome;
     private BigDecimal preco;
     private String sku;
     private String descricao;
-    private int estoque;
+    private Long estoque;
+    private boolean ativo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+
+    public Produto(DadosCadastroProduto dados, Categoria categoria){
+        this.nome = dados.nome();
+        this.preco = dados.preco();
+        this.sku = dados.sku();
+        this.descricao = dados.descricao();
+        this.estoque = dados.estoque();
+        this.ativo = true;
+        this.categoria = categoria;
+    }
+
+    public void excluirProduto() {
+        this.ativo = false;
+    }
 }
