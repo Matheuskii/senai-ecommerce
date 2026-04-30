@@ -1,6 +1,9 @@
 package br.com.senai.api_ecommerce.produto;
 
 import io.micrometer.observation.ObservationFilter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +17,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     Optional<Produto> findByIdAndAtivoTrue(Long id);
 
     Page<Produto> findAllByAtivoTrue(Pageable paginacao);
+
+    boolean existsBySkuAndAtivoTrue(String sku);
 }
