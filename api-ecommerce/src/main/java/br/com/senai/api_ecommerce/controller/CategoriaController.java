@@ -1,6 +1,12 @@
 package br.com.senai.api_ecommerce.controller;
 
 import br.com.senai.api_ecommerce.categoria.*;
+import br.com.senai.api_ecommerce.produto.DadosListagemProduto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,6 +48,15 @@ public class CategoriaController {
     //            .toList();
     //  }
 
+    @Operation(summary = "Listar todos os clientes")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200", description = "Clientes listados com sucesso!!",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DadosListagemProduto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Id inválido", content = @Content)
+    })
     @GetMapping()
     public Page<DadosListagemCategoria> listarCategorias(@PageableDefault(size=10, sort={"nome"}) Pageable paginacao){
 

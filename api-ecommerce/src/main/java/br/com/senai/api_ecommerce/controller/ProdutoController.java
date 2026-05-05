@@ -155,6 +155,23 @@ public class ProdutoController {
                     content = @Content),
     })
     public ResponseEntity<DadosDetalhamentoProduto> atualizarProduto(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Dados para atualização do produto",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = DadosAtualizarProduto.class), // Link direto com o DTO
+                            examples = @ExampleObject(
+                                    value = """
+                                        {
+                                          "id": 1,
+                                          "nome": "Smartphone Atualizado",
+                                          "preco": 1200.50,
+                                          "categoriaId": 2
+                                        }
+                                        """
+                            )
+                    )
+            )
             @RequestBody @Valid DadosAtualizarProduto dados
     ){
         //1. Verificar se o produto existe

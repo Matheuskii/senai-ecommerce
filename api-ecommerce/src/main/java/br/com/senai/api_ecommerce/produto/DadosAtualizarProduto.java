@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 public record DadosAtualizarProduto(
-        @Schema(description = "Id do produto", example = "1" )
+        @Schema(description = "Id do produto", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
         @NotNull
         Long id,
 
